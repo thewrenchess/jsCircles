@@ -1,5 +1,3 @@
-bounce
-
 <html>
 <head>
 	<title>Javascript Box - OOP demo</title>
@@ -42,11 +40,11 @@ bounce
 			var el = document.getElementById(html_id);
 
 			//see if the circle is going outside the browser. if it is, reverse the velocity
-			if( this.info.cx > document.body.clientWidth - 25 || this.info.cx < 0 )
+			if( this.info.cx >= document.body.clientWidth - 30 || this.info.cx <= 20 )
 			{
 				this.info.velocity.x = this.info.velocity.x * -1;
 			}
-			if( this.info.cy > document.body.clientHeight || this.info.cy < 0)
+			if( this.info.cy >= document.body.clientHeight - 20 || this.info.cy <= 20)
 			{
 				this.info.velocity.y = this.info.velocity.y * -1;
 			}
@@ -95,7 +93,7 @@ bounce
 	}
 
 	var playground = new PlayGround();
-	setInterval(playground.loop, 15);
+	setInterval(playground.loop, 25);
 
 	document.onclick = function(e) {
 		playground.createNewCircle(e.x,e.y);
