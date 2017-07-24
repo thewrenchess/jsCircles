@@ -4,7 +4,7 @@
 </head>
 <body>
 
-	<svg id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
+	<svg width=100% height=100% id="svg" xmlns="http://www.w3.org/2000/svg"></svg>
 
 	<script>
 	function Circle(cx, cy, html_id)
@@ -28,7 +28,7 @@
 			var circle = makeSVG('circle', 
 				{ 	cx: this.info.cx,
 				  	cy: this.info.cy,
-				  	r:  10,
+				  	r:  document.body.clientWidth/30,
 				  	id: html_id,
 				  	style: "fill: black"
 				});
