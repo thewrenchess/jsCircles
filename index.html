@@ -22,11 +22,32 @@
 			time_pressed = getTime() - mousedown_time;
 		}
 
+		function	collide(circle, circles) {
+			for (var j = 0; j < circles.length; j++) {
+				if (circles[j] === circle) {
+					continue ;
+				}
+
+				if ((Math.pow((circle.info.cx - circles[j].info.cx), 2)
+					+ Math.pow((circle.info.cy - circles[j].info.cy), 2))
+					<= Math.pow((circle.info.r + circles[j].info.r), 2)) {
+					circle.info.velocity.x *= -1;
+					circle.info.velocity.y *= -1;
+					circle.info.style = "fill: red";
+					circles[j].info.velocity.x *= -1;
+					circles[j].info.velocity.y *= -1;
+					circles[j].info.style = "fill: yellow";
+				}
+			}
+		}
+
+
+
 		function Circle(cx, cy, html_id, time_pressed)
 		{
 			var html_id = html_id;
 			this.info = { cx: cx,  cy: cy, r: time_pressed / 10};
-			
+
 			//private function that generates a random number
 			var randomNumberBetween = function(min, max){
 				return Math.random()*(max-min) + min;
@@ -58,10 +79,12 @@
 				if( this.info.cx >= document.body.clientWidth - this.info.r * 2 - 10 || this.info.cx <= this.info.r * 2 )
 				{
 					this.info.velocity.x = this.info.velocity.x * -1;
+					this.info.style = "fill: green";
 				}
 				if( this.info.cy >= document.body.clientHeight - this.info.r * 2 || this.info.cy <= this.info.r * 2)
 				{
 					this.info.velocity.y = this.info.velocity.y * -1;
+					this.info.style = "fill: blue";
 				}
 
 				this.info.cx = this.info.cx + this.info.velocity.x*time;
@@ -69,6 +92,7 @@
 
 				el.setAttribute("cx", this.info.cx);
 				el.setAttribute("cy", this.info.cy);
+				el.setAttribute("style", this.info.style);
 			}
 
 			//creates the SVG element and returns it
@@ -94,6 +118,7 @@
 				for(circle in circles)
 				{
 					circles[circle].update(1);
+					collide(circles[circle], circles);
 				}
 			}
 
